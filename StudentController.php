@@ -39,6 +39,9 @@ class StudentController extends Controller
          $photo_name =$photo->hashName();//random name
          $photo->move('uploads/',$photo_name);
          }
+
+
+
  
          //validation
          /*
@@ -66,24 +69,98 @@ class StudentController extends Controller
 
          //echo"Registration Successful";
          return redirect('/')->with ('message','Registration successful.');
-     }
+        }
      public function delete( Request $request) //object typing class
      {
       //echo"deleting...";
       $student_id= $request->id;
-      Student::destroy($student_id); //  delete only for primary key and only for one student
+     
+
+         $student=Student::find($student_id);
+         //student =Student :
+
+         if(!empty($student->photo)){
+         //delete the photo
+         $image_path =public_path('uploads/'.
+         $student->photo);
+
+         if(file_exists($image_path)){
+         unlink($image_path);
+
+         
+         }
+        }
+ 
+    
+      $student->delete();
+      
+       //Student::destroy($student_id); //  delete only for primary key and only for one student
       //Student::destroy([1,2,3,]); // for multiple data in array only for primary key
       //Student::where('id',$student_id)->delete() ;         //for other field except primary key
 
       //After deleting we go back to some other page
 
       //return redirect('/'); // to retuen different uel
-      return back();-> with('success','Student  record deleted 
-         successfully!');//to return back to same page
+      return back()-> with('success','Student  record deleted 
+         successfully!'); //to return back to same page
+         }
 
-     }
- }
 
+      public function  updateForm(Request $request)
+        {
+          $student_id =$request->id;
+
+          $student =Student::find($student_id);
+          if (empty($student)){
+            return redirect('/home')->with('success', 'The student does not exist.');
+          }
+          return view('update',['student'=> $student]);
+        }
+       
+        public function update(Request $request)
+        {
+          //echo "updating...";
+          $name =$request->name;
+          //$name =$request->input('name');
+
+          $name =$request->add;
+          $name =$request->gender;
+          $name =$request->dob;
+          $name =$request->email;
+          $name =$request->password;
+        
+        
+          $photo_name='';
+
+
+          if ($request->hasfile('photo')){
+        $photo=$request->file('photo'); 
+        
+        //$photo_name= $photo -> getClientOriginalName(); //give file name,name 
+        // with date and time,use Timestand in small bracket()
+
+        $photo_name =$photo->hashName();//random name
+        $photo->move('uploads/',$photo_name);
+        }
+
+//validate
+               //logic to remove old photo
+
+               if(!empty($student->photo)){
+                //delete the photo
+                $image_path =public_path('uploads/'.$student->photo);
+       
+                if(file_exists($image_path)){
+                unlink($image_path);
+        }
+        Student::where()->update([]);
+        return redirect('/home')-> with('success','Student  record deleted 
+        successfully!');;
+      }
+      }
+          
+      
+ 
  
  
  /*return[
@@ -106,6 +183,5 @@ class StudentController extends Controller
   else{
    return false;
   }
- 
+ */
 }
-*/

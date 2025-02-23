@@ -30,9 +30,11 @@ class RegistrationRequest extends FormRequest
           'password' => 'required|min:6|max:20',
            'photo' => 'nullable|image|max:2048',
            //'photo' => 'nullable|mimes:jpeg,png,gif'
+           //cv' => 'required|mimes:docx,rtf,adt'
            
         ];
     }
+    
 
     public function messages():array
     {
