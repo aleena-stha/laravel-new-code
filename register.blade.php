@@ -16,7 +16,7 @@
        @foreach($errors->all() as $error)
        <div style ="color:red;">{{ $error }}</div>
        @endforeach
-    @endif
+      @endif
         <h1> Student Registration</h1>
         <!--<form action="/registration" method="post">-->
         <form action="{{route('registration')}}" 
@@ -28,17 +28,14 @@
                 <input type="text" name="name" value="{{old('name')}}">
 
                 @error('name')
-                <div style="color:red;">{{ $message }}</div>
+                <div style="color:red;">{{$message }}</div>
 
            @enderror
              </div>
              <div>
                 <label>Address:</label>
                 <input type="text" name="add" value="{{old('add')}}">
-              @error('add')  
-              { {$message }}
-
-           @enderror
+                 
 
              </div>
 
@@ -57,8 +54,8 @@
             
               </div>
              <div>
-                <label>E-mail:</label>
-                <input type="email" name="e-mail">
+                <label>Email:</label>
+                <input type="email" name="email">
              </div>
             
              <div>
@@ -73,7 +70,7 @@
 
              <div>
                 
-                <button type="submit"> Submit</button>
+             <input type="register" name="register" value="Register">
              </div>
     </form>
     </body>

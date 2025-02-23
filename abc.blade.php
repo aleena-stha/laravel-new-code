@@ -24,7 +24,7 @@
  
     {{ $add }}
  
-    Blade directives
+    //Blade directives
     @foreach($phone as $phone_number)
         <h1>{{ $phone_number }}</h1>
     @endforeach

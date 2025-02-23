@@ -13,12 +13,17 @@
     <body>
         {{session('success') }}
         <h1> Students Records :</h1>
-        @foreach($students as $student)
+        @foreach($students2 as $student)
+        
+
         <div>
         {{ $student->name }},
         {{ $student->add}}
-         <a href ="/delete/{{$student->id}}">
-            Delete</a>
+        
+        
+       
+         <a href ="/delete/{{$student->id}}"> Delete</a>
+            <a href ="/update/{{$student->id}}">Update</a>
            </div>
         
         @endforeach
