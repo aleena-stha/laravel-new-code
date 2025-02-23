@@ -2,8 +2,10 @@
  
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
- use App\Http\ControllersStudentControllers;
-use App\Models\Student;
+ use App\Http\Controllers\StudentController; 
+ 
+use App\Models\Student; //// Ensure to import the model at the top
+
 
 Route::get('/', function () {
     $name = '<script>alert("hello script")</script>';
@@ -75,22 +77,85 @@ Route::get('/blog/{id}/comment/{comment_id}',function($id,$comment_id){
  
 Route::get('/home',function()
 {
-   // return view('home');
-   //$students =$student::all();collection
-   //$students =$student::first();model
-   //$students =$student::where('add,
-   //pokhara-1')->  orwhere('add' ,
-   //'ktm')->get();collection
-   //SELECT * FROM studenta WHERE 
-   //add=pokhara OR gender=2
-  
-  
-   $students1 =$student::find(2);//model
-   $students2 =$student::where('all',2)->get();//collection
+    
+    
 
-   return view('students',['students1]' =>
-   $students1,'students2'=>$students2 ]);
+    // Fetch all students (collection)
+    //$students = Student::all();
+
+    // Fetch a student with ID 1
+    //$students1 = Student::find(1);
+
+    // Fetch all students (Fixing 'all' column error)
+/* $students2 = Student::all(); //
+    return view('students', [
+        'students1' => $students1,
+        'students2' => $students2
+    ]);*/
+
+
+    //return view('students', ['students1' => $students1, 'students2' => $students2]);
+   
+   
+
+//$students =$student::first();//model
+
+   //$students =$student::where('add',
+   //'pokhara-1')->  orWhere('add' ,
+   //'ktm')->get(); //collection
+   
+   //SELECT * FROM Students WHERE 
+   //add=pokhara OR gender=2
+  //$students=Student::where('add','pokhara1')->get();
+  //$students=Student::where('add','pokhara1')->where('gender',2)->get();
+
+  
+
+  
+    // Fetch all students (collection)
+    //$students =Student::all();
+
+    // Fetch a student with ID 1
+   // $students1 = Student::find(1);
+
+    
+
+
+
+
+
+  
+   ////$students1 =Student::find(2);// it fetches data from model
+
+   // Fetch all students 
+   //$students2=$student::all();
+   //$students2 =Student::where('all',2)->get();//collection
+
+   //return view('students',[
+    //'students1' => $students1,
+    //'students2' => $students2 ]);*/
+     // return view('home');
+    // $students = Student::all();
+    // $students = Student::first();
+    // $students = Student::where('add','Pokhara1')->get(''); // this line doesnot work because P is capital
+    // $students = Student::where('gender', 2)->get();
+    // $students = Student::where('add', 'pokhara1')->get();
+    // $students = Student::where('add', 'pokhara1')->where('gender', 2)->get();
+    // $students = Student::where('add', 'pokhara1')->orwhere('add', 'pokhara-14')->get();
+    // $student = $student::all(); // collection
+    // $student = $student::first(); // model
+    // $student = $student::where('add','pokhara1'); // collection
+    //$students1 = student::find(1); //it fetches data from model
+    // $students2 = student::where('id', 2)->get(); //it fetches data from database
+    //$students2= student::all();
+    $students2= student::all(); // Fetch all students
+
+    //return view('students', compact('students'));
+    return view('students', ['students2' => $students2, 'students2' => $students2]);
 });
+   
+   
+
 
     Route::get('/student-registration',function(){
         return view('register');
@@ -99,9 +164,17 @@ Route::get('/home',function()
     //Route::post('/registration',function(){ //echo "registrating";});
     Route::post('/registration',[StudentController::class,'registration'])
     ->name('registration');
+    
 
-    Route::get ('/delete/{id}',[StudentController:: 
-    class,'delete'])->where;
+
+
+
+    Route::get ('/delete/{id}',[StudentController::class,'delete'])->where('id','[0-9]+');
+
+    Route::get ('/update/{id}',[StudentController::class,'updateForm']);
+
+    Route::post('/update',[StudentController::class,'update']);
+    //nameview or name of post url {controllername::class,'functionname inside the class']}
  
 Route::get('/dashboard', function () {
     return view('dashboard');
